@@ -1,0 +1,34 @@
+.navigation {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    .link {
+      &__wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 0 1rem;
+      }
+
+      &__button {
+        border-radius: 100%;
+        padding: 1.2rem;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        background-color: #fafafa;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &__text {
+        margin-top: 0.5rem;
+        color: black;
+      }
+    }
+  }
+}
