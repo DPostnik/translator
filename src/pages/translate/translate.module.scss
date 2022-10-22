@@ -1,0 +1,48 @@
+@import '../../styles/utils/_all.scss';
+
+.page__wrapper {
+  width: 100%;
+
+  @include md {
+    max-width: 80rem;
+    padding: 0 3rem;
+  }
+
+  .textarea__wrapper {
+    display: flex;
+    flex-direction: column;
+
+    @include md {
+      flex-direction: row;
+    }
+
+    & > * {
+      flex: 1;
+    }
+  }
+
+  .select__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    border: 1px solid black;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    & > *:nth-child(2) {
+      padding: 0 1rem;
+    }
+
+    .select__control {
+      height: 3rem;
+      flex: 1;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

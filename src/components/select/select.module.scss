@@ -1,0 +1,15 @@
+@import '../../styles/utils/_all.scss';
+
+.select__control {
+  height: 3rem;
+  flex-grow: 0;
+  width: 100%;
+
+  @include md {
+    flex-grow: 1;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

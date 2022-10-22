@@ -14,6 +14,14 @@ code {
     monospace;
 }
 
+select {
+  border: none;
+}
+
+ul {
+  padding-inline-start: 0;
+}
+
 li {
   list-style: none;
 }
