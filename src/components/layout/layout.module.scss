@@ -1,7 +1,14 @@
+@import '../../styles/utils/_all.scss';
+
 .content__layout {
-  padding: 5rem;
+  padding: 2rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  @include md {
+    padding: 5rem;
+  }
+
 }
