@@ -1,51 +1,73 @@
-import { createContext, useContext, useReducer } from 'react';
-import { getLanguages } from 'store/selectors';
+import { createContext, Dispatch, useContext, useReducer } from 'react';
 
-export interface AppContext {
+import { Option } from 'interfaces/option';
+import {
+  getLanguages,
+  getSourceLanguage,
+  getSourceText,
+  getTargetLanguage,
+  getTargetText,
+} from 'store/selectors';
+
+export interface InitialStateType {
   sourceText: string;
   sourceLanguage: string;
   targetLanguage: string;
   targetText: string;
-  languages: { label: string; value: string }[];
+  languages: Option[];
 }
 
-const initialValue: AppContext = {
+const initialValue: InitialStateType = {
   sourceText: '',
-  sourceLanguage: '',
-  targetLanguage: '',
+  sourceLanguage: 'ru',
+  targetLanguage: 'en',
   targetText: '',
   languages: [],
 };
 
-const appContext = createContext<AppContext>(initialValue);
+const appContext = createContext<{
+  state: InitialStateType;
+  dispatch: Dispatch<{ type: ActionTypes; payload: any }>;
+}>({ state: initialValue, dispatch: () => null });
 
-function appReducer(state: AppContext, action: any) {
+enum ActionTypes {
+  SET_SOURCE_LANGUAGE = 'setSourceLanguage',
+  SET_TARGET_LANGUAGE = 'setTargetLanguage',
+  SET_SOURCE_TEXT = 'setSourceText',
+  SET_TARGET_TEXT = 'setTargetText',
+  SET_LANGUAGES = 'setLanguages',
+}
+
+function appReducer(
+  state: InitialStateType,
+  action: { payload: any; type: ActionTypes }
+) {
   switch (action.type) {
-    case 'setSourceLanguage': {
+    case ActionTypes.SET_SOURCE_LANGUAGE: {
       return {
         ...state,
         sourceLanguage: action.payload,
       };
     }
-    case 'setTargetLanguage': {
+    case ActionTypes.SET_TARGET_LANGUAGE: {
       return {
         ...state,
         targetLanguage: action.payload,
       };
     }
-    case 'setSourceText': {
+    case ActionTypes.SET_SOURCE_TEXT: {
       return {
         ...state,
         sourceText: action.payload,
       };
     }
-    case 'setTargetText': {
+    case ActionTypes.SET_TARGET_TEXT: {
       return {
         ...state,
         targetText: action.payload,
       };
     }
-    case 'setLanguages': {
+    case ActionTypes.SET_LANGUAGES: {
       return {
         ...state,
         languages: action.payload,
@@ -58,22 +80,25 @@ function appReducer(state: AppContext, action: any) {
 
 function AppProvider({ children }: any) {
   const [state, dispatch] = useReducer(appReducer, initialValue);
-
-  const value = { ...state, dispatch };
+  const value = { state, dispatch };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
 }
 
-function useApp(selector?: (context: AppContext) => any) {
+function useApp(selector?: (context: InitialStateType) => any) {
   const context = useContext(appContext);
   if (context === undefined) {
     throw new Error('useApp must be used within a AppProvider');
   }
-  return selector ? selector(context) : context;
+  return selector ? selector(context.state) : context;
 }
 
 const selectors = {
   getLanguages,
+  getSourceText,
+  getTargetText,
+  getSourceLanguage,
+  getTargetLanguage,
 };
 
-export { AppProvider, useApp, selectors };
+export { AppProvider, useApp, selectors, ActionTypes };
