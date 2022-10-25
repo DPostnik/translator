@@ -23,6 +23,7 @@ const axiosInstance = axios.create({
   baseURL: 'https://microsoft-translator-text.p.rapidapi.com',
   params: { 'api-version': '3.0', scope: ['translation'] },
 });
+
 export const translate = (to: string, text: string, from: string) => {
   return axiosInstance
     .post('translate', [{ Text: text }], {
@@ -34,5 +35,15 @@ export const translate = (to: string, text: string, from: string) => {
     })
     .then((res: any) => {
       return res?.data?.[0]?.translations?.[0]?.text;
+    });
+};
+
+export const detectLanguage = (text: string) => {
+  return axiosInstance
+    .post('Detect', [{ Text: text }], {
+      params: baseParams,
+    })
+    .then((res: any) => {
+      return res.data[0];
     });
 };
