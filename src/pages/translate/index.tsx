@@ -6,6 +6,7 @@ import Warning from 'components/warning';
 import useLanguages from 'hooks/useLanguages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslate from 'hooks/useTranslate';
+import useUrl from 'hooks/useUrl';
 import { useApp, ActionTypes, selectors } from 'store/context';
 import { getSourceLanguages, getTargetLanguages } from 'utils/language';
 
@@ -21,6 +22,8 @@ export default function TranslatePage() {
   const debouncedValue = useDebounce(sourceText, 500);
 
   useTranslate({ sourceLanguage, sourceText: debouncedValue, targetLanguage });
+
+  useUrl();
 
   const onChangeLanguage = useCallback(
     (name: string, value: string) => {

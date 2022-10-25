@@ -25,3 +25,7 @@ export function getSourceLanguages(languages: Option[]) {
 export function getTargetLanguages(languages: Option[], source: string) {
   return languages.filter((language) => language.value !== source);
 }
+
+export function checkLanguageIsExist(languages: Option[], language: string) {
+  return languages.some((item) => item.value === language);
+}
