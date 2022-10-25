@@ -19,3 +19,13 @@ export const getSourceLanguage = (context: InitialStateType) => {
 export const getTargetLanguage = (context: InitialStateType) => {
   return context.targetLanguage;
 };
+
+export const getTranslateState = (context: InitialStateType) => {
+  return {
+    sourceText: context.sourceText,
+    targetText: context.targetText,
+    sourceLanguage: context.sourceLanguage,
+    targetLanguage: context.targetLanguage,
+    languages: context.languages,
+  };
+};

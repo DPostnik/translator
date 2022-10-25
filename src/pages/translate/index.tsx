@@ -3,7 +3,9 @@ import { useCallback } from 'react';
 import Select from 'components/select';
 import TextField from 'components/textField';
 import useLanguages from 'hooks/useLanguages';
-import { selectors, useApp, ActionTypes } from 'store/context';
+import useDebounce from 'hooks/useDebounce';
+import useTranslate from 'hooks/useTranslate';
+import { useApp, ActionTypes, selectors } from 'store/context';
 
 import ExchangeIcon from 'assets/icons/exchange.svg';
 import classes from './translate.module.scss';
@@ -11,16 +13,17 @@ import classes from './translate.module.scss';
 export default function TranslatePage() {
   useLanguages();
   const { dispatch } = useApp();
-  const languages = useApp(selectors.getLanguages);
-  const sourceLanguage = useApp(selectors.getSourceLanguage);
-  const targetLanguage = useApp(selectors.getTargetLanguage);
-  const sourceText = useApp(selectors.getSourceText);
-  const targetText = useApp(selectors.getTargetText);
+  const { languages, sourceLanguage, targetLanguage, sourceText, targetText } =
+    useApp(selectors.getTranslateState);
+
+  const debouncedValue = useDebounce(sourceText, 500);
+
+  useTranslate({ sourceLanguage, sourceText: debouncedValue, targetLanguage });
 
   const onChangeLanguage = useCallback(
     (name: string, value: string) => {
       const type =
-        name === 'source'
+        name === 'sourceLanguage'
           ? ActionTypes.SET_SOURCE_LANGUAGE
           : ActionTypes.SET_TARGET_LANGUAGE;
       dispatch({ type, payload: value });
@@ -35,6 +38,10 @@ export default function TranslatePage() {
     [dispatch]
   );
 
+  const onChangeLanguages = () => {
+    dispatch({ type: ActionTypes.EXCHANGE_LANGUAGES });
+  };
+
   return (
     <>
       <div className={classes.page__wrapper}>
@@ -43,14 +50,20 @@ export default function TranslatePage() {
             options={languages}
             value={sourceLanguage}
             onChange={onChangeLanguage}
-            name={'sourceLanguage'}
+            name="sourceLanguage"
           />
-          <img src={ExchangeIcon} alt="arrow" width={25} height={25} />
+          <img
+            src={ExchangeIcon}
+            alt="arrow"
+            width={25}
+            height={25}
+            onClick={onChangeLanguages}
+          />
           <Select
             options={languages}
             value={targetLanguage}
             onChange={onChangeLanguage}
-            name={'targetLanguage'}
+            name="targetLanguage"
           />
         </div>
         <div className={classes.textarea__wrapper}>

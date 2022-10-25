@@ -7,6 +7,7 @@ import {
   getSourceText,
   getTargetLanguage,
   getTargetText,
+  getTranslateState,
 } from 'store/selectors';
 
 export interface InitialStateType {
@@ -36,6 +37,7 @@ enum ActionTypes {
   SET_SOURCE_TEXT = 'setSourceText',
   SET_TARGET_TEXT = 'setTargetText',
   SET_LANGUAGES = 'setLanguages',
+  EXCHANGE_LANGUAGES = 'exchangeLanguages',
 }
 
 function appReducer(
@@ -73,6 +75,13 @@ function appReducer(
         languages: action.payload,
       };
     }
+    case ActionTypes.EXCHANGE_LANGUAGES: {
+      return {
+        ...state,
+        sourceLanguage: state.targetLanguage,
+        targetLanguage: state.sourceLanguage,
+      };
+    }
     default:
       return state;
   }
@@ -99,6 +108,7 @@ const selectors = {
   getTargetText,
   getSourceLanguage,
   getTargetLanguage,
+  getTranslateState,
 };
 
 export { AppProvider, useApp, selectors, ActionTypes };
