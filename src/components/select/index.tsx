@@ -1,11 +1,8 @@
 import { useRef } from 'react';
 
-import classes from './select.module.scss';
+import { Option } from 'interfaces';
 
-export interface Option {
-  label: string;
-  value: string;
-}
+import classes from './select.module.scss';
 
 type Props = {
   options: Option[];
@@ -14,7 +11,7 @@ type Props = {
   name: string;
 };
 
-function Select({ options, value, onChange, name }: Props) {
+export default function Select({ options, value, onChange, name }: Props) {
   const selectRef = useRef<any>(null);
 
   const onChangeSelect = (event: any) => {
@@ -38,5 +35,3 @@ function Select({ options, value, onChange, name }: Props) {
     </select>
   );
 }
-
-export default Select;
