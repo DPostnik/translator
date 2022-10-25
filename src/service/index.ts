@@ -12,7 +12,7 @@ const languageApi = axios.create({
   timeout: 10000,
   headers,
   baseURL: 'https://api.cognitive.microsofttranslator.com/languages',
-  params: { 'api-version': '3.0', scope: ['translation'] },
+  params: baseParams,
 });
 
 export { languageApi };
@@ -23,7 +23,7 @@ const axiosInstance = axios.create({
   baseURL: 'https://microsoft-translator-text.p.rapidapi.com',
   params: { 'api-version': '3.0', scope: ['translation'] },
 });
-export const translate = (to: string, from: string, text: string) => {
+export const translate = (to: string, text: string, from: string) => {
   return axiosInstance
     .post('translate', [{ Text: text }], {
       params: {

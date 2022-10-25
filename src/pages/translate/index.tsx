@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import Select from 'components/select';
 import TextField from 'components/textField';
@@ -6,6 +6,7 @@ import useLanguages from 'hooks/useLanguages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslate from 'hooks/useTranslate';
 import { useApp, ActionTypes, selectors } from 'store/context';
+import { getSourceLanguages, getTargetLanguages } from 'utils/language';
 
 import ExchangeIcon from 'assets/icons/exchange.svg';
 import classes from './translate.module.scss';
@@ -42,12 +43,24 @@ export default function TranslatePage() {
     dispatch({ type: ActionTypes.EXCHANGE_LANGUAGES });
   };
 
+  const canChangeLanguages = useMemo(() => {
+    return languages.length > 0 && sourceLanguage !== 'auto';
+  }, [languages, sourceLanguage]);
+
+  const sourceLanguages = useMemo(() => {
+    return getSourceLanguages(languages);
+  }, [languages]);
+
+  const targetLanguages = useMemo(() => {
+    return getTargetLanguages(languages, sourceLanguage);
+  }, [languages, sourceLanguage]);
+
   return (
     <>
       <div className={classes.page__wrapper}>
         <div className={classes.select__wrapper}>
           <Select
-            options={languages}
+            options={sourceLanguages}
             value={sourceLanguage}
             onChange={onChangeLanguage}
             name="sourceLanguage"
@@ -57,10 +70,11 @@ export default function TranslatePage() {
             alt="arrow"
             width={25}
             height={25}
-            onClick={onChangeLanguages}
+            onClick={canChangeLanguages ? onChangeLanguages : undefined}
+            className={canChangeLanguages ? '' : classes.disabled}
           />
           <Select
-            options={languages}
+            options={targetLanguages}
             value={targetLanguage}
             onChange={onChangeLanguage}
             name="targetLanguage"
