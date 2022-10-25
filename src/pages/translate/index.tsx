@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import Select from 'components/select';
 import TextField from 'components/textField';
+import Warning from 'components/warning';
 import useLanguages from 'hooks/useLanguages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslate from 'hooks/useTranslate';
@@ -89,6 +90,7 @@ export default function TranslatePage() {
           <TextField rows={5} value={targetText} />
         </div>
       </div>
+      <Warning sourceLanguage={sourceLanguage} sourceText={debouncedValue} />
     </>
   );
 }
