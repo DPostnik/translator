@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { translate } from 'service';
 import { ActionTypes, useApp } from 'store/context';
 
@@ -16,10 +17,17 @@ export default function useTranslate({
   const { dispatch } = useApp();
 
   useEffect(() => {
-    if (!sourceText) return;
+    if (!sourceText) {
+      dispatch({ type: ActionTypes.SET_TARGET_TEXT, payload: '' });
+      return;
+    }
 
     (async function translateText() {
-      const data = await translate(targetLanguage, sourceLanguage, sourceText);
+      const data = await translate(
+        targetLanguage,
+        sourceText,
+        sourceLanguage === 'auto' ? '' : sourceLanguage
+      );
       dispatch({
         type: ActionTypes.SET_TARGET_TEXT,
         payload: data,

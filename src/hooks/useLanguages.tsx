@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { parseLanguagesToArray } from 'utils/parse';
+
 import { languageApi } from 'service';
-import { useApp } from 'store/context';
+import { ActionTypes, useApp } from 'store/context';
+import { parseLanguagesToArray } from 'utils/language';
 
 export default function useLanguages() {
   const { dispatch } = useApp();
@@ -11,7 +12,7 @@ export default function useLanguages() {
       const { data } = await languageApi.get('');
       const parsedData = parseLanguagesToArray(data.translation);
 
-      dispatch({ type: 'setLanguages', payload: parsedData });
+      dispatch({ type: ActionTypes.SET_LANGUAGES, payload: parsedData });
     }
 
     void getLanguages();

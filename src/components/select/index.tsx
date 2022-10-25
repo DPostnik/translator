@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import { Option } from 'interfaces';
 
@@ -11,7 +11,7 @@ type Props = {
   name: string;
 };
 
-export default function Select({ options, value, onChange, name }: Props) {
+function Select({ options, value, onChange, name }: Props) {
   const selectRef = useRef<any>(null);
 
   const onChangeSelect = (event: any) => {
@@ -35,3 +35,5 @@ export default function Select({ options, value, onChange, name }: Props) {
     </select>
   );
 }
+
+export default memo(Select);
