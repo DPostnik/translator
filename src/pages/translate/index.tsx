@@ -3,11 +3,13 @@ import { useCallback, useMemo } from 'react';
 import Select from 'components/select';
 import TextField from 'components/textField';
 import Warning from 'components/warning';
+import { ActionTypes } from 'enums/action-types';
+import { Languages } from 'enums/languages';
 import useLanguages from 'hooks/useLanguages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslate from 'hooks/useTranslate';
 import useUrl from 'hooks/useUrl';
-import { useApp, ActionTypes, selectors } from 'store/context';
+import { useApp, selectors } from 'store/context';
 import { getSourceLanguages, getTargetLanguages } from 'utils/language';
 
 import ExchangeIcon from 'assets/icons/exchange.svg';
@@ -48,7 +50,7 @@ export default function TranslatePage() {
   };
 
   const canChangeLanguages = useMemo(() => {
-    return languages.length > 0 && sourceLanguage !== 'auto';
+    return languages.length > 0 && sourceLanguage !== Languages.AUTO;
   }, [languages, sourceLanguage]);
 
   const sourceLanguages = useMemo(() => {
@@ -92,8 +94,8 @@ export default function TranslatePage() {
           />
           <TextField rows={5} value={targetText} />
         </div>
+        <Warning sourceLanguage={sourceLanguage} sourceText={debouncedValue} />
       </div>
-      <Warning sourceLanguage={sourceLanguage} sourceText={debouncedValue} />
     </>
   );
 }

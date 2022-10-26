@@ -1,4 +1,5 @@
 import { Option } from 'interfaces';
+import { Languages } from 'enums/languages';
 
 export function parseLanguagesToArray(translation: any): never[] {
   const arr: any = [];
@@ -14,7 +15,7 @@ export function parseLanguagesToArray(translation: any): never[] {
 }
 
 const defaultSourceLanguage: Option = {
-  value: 'auto',
+  value: Languages.AUTO,
   label: 'Определить язык',
 };
 

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 
+import { ActionTypes } from 'enums/action-types';
 import { languageApi } from 'service';
-import { ActionTypes, useApp } from 'store/context';
+import { useApp } from 'store/context';
 import { parseLanguagesToArray } from 'utils/language';
 
 export default function useLanguages() {
