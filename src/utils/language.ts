@@ -30,3 +30,7 @@ export function getTargetLanguages(languages: Option[], source: string) {
 export function checkLanguageIsExist(languages: Option[], language: string) {
   return languages.some((item) => item.value === language);
 }
+
+export function findLanguageByKey(languages: Option[], key: string) {
+  return languages.find((language) => language.value === key);
+}

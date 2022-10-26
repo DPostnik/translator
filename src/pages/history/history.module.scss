@@ -1,0 +1,14 @@
+.history {
+  &__wrapper {
+    height: 100%;
+    width: 100%;
+    padding: 2rem 5rem;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

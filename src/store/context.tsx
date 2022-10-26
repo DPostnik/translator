@@ -18,7 +18,6 @@ export interface InitialStateType {
   targetLanguage: string;
   targetText: string;
   languages: Option[];
-  error: string;
 }
 
 const initialValue: InitialStateType = {
@@ -27,7 +26,6 @@ const initialValue: InitialStateType = {
   targetLanguage: Languages.ENGLISH,
   targetText: '',
   languages: [],
-  error: '',
 };
 
 const appContext = createContext<{
@@ -76,12 +74,6 @@ function appReducer(
         sourceLanguage: state.targetLanguage,
         targetLanguage: state.sourceLanguage,
         sourceText: state.targetText,
-      };
-    }
-    case ActionTypes.SET_ERROR: {
-      return {
-        ...state,
-        error: action.payload,
       };
     }
     default:

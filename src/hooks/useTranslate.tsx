@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 
-import { translate } from 'service';
-import { useApp } from 'store/context';
 import { ActionTypes } from 'enums/action-types';
 import { Languages } from 'enums/languages';
+import { translate } from 'service';
+import { selectors, useApp } from 'store/context';
+import { createTranslationItem, saveTranslationItem } from 'utils/history';
 
 type TranslateProps = {
   targetLanguage: string;
@@ -17,6 +18,7 @@ export default function useTranslate({
   targetLanguage,
 }: TranslateProps) {
   const { dispatch } = useApp();
+  const languages = useApp(selectors.getLanguages);
 
   useEffect(() => {
     if (!sourceText) {
@@ -30,17 +32,22 @@ export default function useTranslate({
         sourceText,
         sourceLanguage === Languages.AUTO ? '' : sourceLanguage
       );
-      if (data.error) {
-        dispatch({
-          type: ActionTypes.SET_ERROR,
-          payload: data.error,
-        });
-        return;
-      }
+
+      saveTranslationItem(
+        'history',
+        createTranslationItem(
+          sourceLanguage,
+          targetLanguage,
+          sourceText,
+          data,
+          languages
+        )
+      );
+
       dispatch({
         type: ActionTypes.SET_TARGET_TEXT,
         payload: data,
       });
     })();
-  }, [sourceText, targetLanguage, sourceLanguage, dispatch]);
+  }, [sourceText, targetLanguage, sourceLanguage, dispatch, languages]);
 }
