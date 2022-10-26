@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { Languages } from 'enums/languages';
 import { detectLanguage } from 'service';
 
 type Props = {
@@ -14,7 +15,7 @@ export default function useDetectLanguage({
   const [detectedLanguage, setDetectedLanguage] = useState('');
 
   useEffect(() => {
-    if (!sourceText || sourceLanguage === 'auto') return;
+    if (!sourceText || sourceLanguage === Languages.AUTO) return;
 
     detectLanguage(sourceText).then((data) => {
       const element = data;

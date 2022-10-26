@@ -1,6 +1,8 @@
 import { createContext, Dispatch, useContext, useReducer } from 'react';
 
 import { Option } from 'interfaces/option';
+import { ActionTypes } from 'enums/action-types';
+import { Languages } from 'enums/languages';
 import {
   getLanguages,
   getSourceLanguage,
@@ -16,29 +18,22 @@ export interface InitialStateType {
   targetLanguage: string;
   targetText: string;
   languages: Option[];
+  error: string;
 }
 
 const initialValue: InitialStateType = {
   sourceText: '',
-  sourceLanguage: 'ru',
-  targetLanguage: 'en',
+  sourceLanguage: Languages.RUSSIAN,
+  targetLanguage: Languages.ENGLISH,
   targetText: '',
   languages: [],
+  error: '',
 };
 
 const appContext = createContext<{
   state: InitialStateType;
   dispatch: Dispatch<{ type: ActionTypes; payload: any }>;
 }>({ state: initialValue, dispatch: () => null });
-
-enum ActionTypes {
-  SET_SOURCE_LANGUAGE = 'setSourceLanguage',
-  SET_TARGET_LANGUAGE = 'setTargetLanguage',
-  SET_SOURCE_TEXT = 'setSourceText',
-  SET_TARGET_TEXT = 'setTargetText',
-  SET_LANGUAGES = 'setLanguages',
-  EXCHANGE_LANGUAGES = 'exchangeLanguages',
-}
 
 function appReducer(
   state: InitialStateType,
@@ -80,6 +75,13 @@ function appReducer(
         ...state,
         sourceLanguage: state.targetLanguage,
         targetLanguage: state.sourceLanguage,
+        sourceText: state.targetText,
+      };
+    }
+    case ActionTypes.SET_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
       };
     }
     default:
@@ -111,4 +113,4 @@ const selectors = {
   getTranslateState,
 };
 
-export { AppProvider, useApp, selectors, ActionTypes };
+export { AppProvider, useApp, selectors };

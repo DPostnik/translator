@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 
 import { translate } from 'service';
-import { ActionTypes, useApp } from 'store/context';
+import { useApp } from 'store/context';
+import { ActionTypes } from 'enums/action-types';
+import { Languages } from 'enums/languages';
 
 type TranslateProps = {
   targetLanguage: string;
@@ -26,8 +28,15 @@ export default function useTranslate({
       const data = await translate(
         targetLanguage,
         sourceText,
-        sourceLanguage === 'auto' ? '' : sourceLanguage
+        sourceLanguage === Languages.AUTO ? '' : sourceLanguage
       );
+      if (data.error) {
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: data.error,
+        });
+        return;
+      }
       dispatch({
         type: ActionTypes.SET_TARGET_TEXT,
         payload: data,

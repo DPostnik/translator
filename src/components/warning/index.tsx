@@ -1,6 +1,7 @@
 import useDetectLanguage from 'hooks/useDetectLanguage';
 
 import classes from './warning.module.scss';
+import { Languages } from 'enums/languages';
 
 type WarningProps = {
   sourceLanguage: string;
@@ -11,7 +12,7 @@ export default function Warning({ sourceLanguage, sourceText }: WarningProps) {
   const detectedLanguage = useDetectLanguage({ sourceText, sourceLanguage });
 
   const wrongLanguage =
-    sourceLanguage !== 'auto' &&
+    sourceLanguage !== Languages.AUTO &&
     sourceText &&
     detectedLanguage &&
     detectedLanguage !== sourceLanguage;
