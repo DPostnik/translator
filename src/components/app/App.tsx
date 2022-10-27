@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Router from 'components/router';
 import { AppProvider } from 'store/context';
 

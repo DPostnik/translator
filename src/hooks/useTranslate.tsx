@@ -4,7 +4,7 @@ import { ActionTypes } from 'enums/action-types';
 import { Languages } from 'enums/languages';
 import { translate } from 'service';
 import { selectors, useApp } from 'store/context';
-import { createTranslationItem, saveTranslationItem } from 'utils/history';
+import { createTranslationItem } from 'utils/history';
 
 type TranslateProps = {
   targetLanguage: string;
@@ -33,21 +33,22 @@ export default function useTranslate({
         sourceLanguage === Languages.AUTO ? '' : sourceLanguage
       );
 
-      saveTranslationItem(
-        'history',
-        createTranslationItem(
+      dispatch({
+        type: ActionTypes.ADD_ITEM_TO_HISTORY,
+        payload: createTranslationItem(
           sourceLanguage,
           targetLanguage,
           sourceText,
           data,
           languages
-        )
-      );
+        ),
+      });
 
       dispatch({
         type: ActionTypes.SET_TARGET_TEXT,
         payload: data,
       });
     })();
-  }, [sourceText, targetLanguage, sourceLanguage, dispatch, languages]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sourceText, targetLanguage, sourceLanguage, dispatch]);
 }

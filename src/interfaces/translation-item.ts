@@ -4,4 +4,5 @@ export interface TranslationItem {
   sourceText: string;
   targetText: string;
   link: string;
+  uid: string;
 }

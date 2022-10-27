@@ -1,8 +1,9 @@
 import { createContext, Dispatch, useContext, useReducer } from 'react';
 
-import { Option } from 'interfaces/option';
+import { TranslationItem, Option } from 'interfaces';
 import { ActionTypes } from 'enums/action-types';
 import { Languages } from 'enums/languages';
+import { STORAGES } from 'enums/storages';
 import {
   getLanguages,
   getSourceLanguage,
@@ -11,6 +12,12 @@ import {
   getTargetText,
   getTranslateState,
 } from 'store/selectors';
+import {
+  clearStorageByKey,
+  getItemByKeyFromLocalStorage,
+  removeItemByUID,
+  saveTranslationItem,
+} from 'utils/history';
 
 export interface InitialStateType {
   sourceText: string;
@@ -18,6 +25,7 @@ export interface InitialStateType {
   targetLanguage: string;
   targetText: string;
   languages: Option[];
+  history: TranslationItem[];
 }
 
 const initialValue: InitialStateType = {
@@ -26,6 +34,7 @@ const initialValue: InitialStateType = {
   targetLanguage: Languages.ENGLISH,
   targetText: '',
   languages: [],
+  history: [],
 };
 
 const appContext = createContext<{
@@ -74,6 +83,33 @@ function appReducer(
         sourceLanguage: state.targetLanguage,
         targetLanguage: state.sourceLanguage,
         sourceText: state.targetText,
+      };
+    }
+    case ActionTypes.GET_HISTORY: {
+      return {
+        ...state,
+        history: getItemByKeyFromLocalStorage(STORAGES.HISTORY),
+      };
+    }
+    case ActionTypes.ADD_ITEM_TO_HISTORY: {
+      saveTranslationItem(STORAGES.HISTORY, action.payload);
+      return {
+        ...state,
+        history: getItemByKeyFromLocalStorage(STORAGES.HISTORY),
+      };
+    }
+    case ActionTypes.REMOVE_ITEM_FROM_HISTORY: {
+      removeItemByUID(STORAGES.HISTORY, action.payload);
+      return {
+        ...state,
+        history: getItemByKeyFromLocalStorage(STORAGES.HISTORY),
+      };
+    }
+    case ActionTypes.CLEAR_HISTORY: {
+      clearStorageByKey(STORAGES.HISTORY);
+      return {
+        ...state,
+        history: [],
       };
     }
     default:

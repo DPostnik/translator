@@ -1,18 +1,37 @@
+@import '../../styles/utils/_all.scss';
+
 .item {
   &__wrapper {
-    width: 50%;
+    width: 100%;
     padding: 2rem 3rem;
     border-radius: 1rem;
     margin: 1rem;
     border: 1px solid black;
-    color: black;
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
+
+    @include md {
+      width: 30%;
+    }
 
     &:hover {
       background-color: #fafafa;
     }
+  }
+
+  &__image {
+    align-self: flex-end;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 
   &__languages {
