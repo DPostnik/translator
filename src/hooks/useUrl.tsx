@@ -16,11 +16,12 @@ export default function useUrl() {
 
   useEffect(() => {
     if (!languages.length) return;
+
     languagesDownloaded.current = true;
     const sl = searchParams.get('sl');
     const tl = searchParams.get('tl');
     const text = searchParams.get('text');
-    if (sl && tl) {
+    if (sl && tl && sl !== tl) {
       if (checkLanguageIsExist(getSourceLanguages(languages), sl)) {
         dispatch({
           type: ActionTypes.SET_SOURCE_LANGUAGE,
@@ -54,7 +55,7 @@ export default function useUrl() {
     setSearchParams({
       sl: sourceLanguage,
       tl: targetLanguage,
-      text: sourceText,
+      text: sourceText.trim(),
     });
   }, [sourceLanguage, targetLanguage, sourceText, setSearchParams]);
 }
