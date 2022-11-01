@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { TranslationItem } from 'interfaces';
 import { Colors } from 'enums/colors';
 
@@ -17,8 +15,10 @@ export default function TranslationItemComponent({
   isFavourite,
   onRemoveItem,
   onAddToFavourites,
+  onRouteClick,
 }: TranslationItem & {
   onRemoveItem?: (uid: string) => void;
+  onRouteClick?: (uid: string, link: string) => void;
   onAddToFavourites: (uid: string, isFavourite: boolean) => void;
 }) {
   const onRemove = () => {
@@ -27,6 +27,10 @@ export default function TranslationItemComponent({
 
   const onAddToFavouritesHandler = () => {
     onAddToFavourites(uid, !isFavourite);
+  };
+
+  const routeClick = () => {
+    onRouteClick && onRouteClick(uid, link);
   };
 
   return (
@@ -38,7 +42,7 @@ export default function TranslationItemComponent({
         />
         {onRemoveItem && <RemoveIcon fill={Colors.WHITE} onClick={onRemove} />}
       </div>
-      <Link to={link}>
+      <div onClick={routeClick}>
         <div className={classes.item__content}>
           <span className={classes.item__languages}>
             {sourceLanguage} &rarr; {targetLanguage}
@@ -46,7 +50,7 @@ export default function TranslationItemComponent({
           <span>{sourceText}</span>
           <span className={classes['item__target-text']}>{targetText}</span>
         </div>
-      </Link>
+      </div>
     </li>
   );
 }

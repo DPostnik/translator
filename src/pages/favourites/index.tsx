@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import HistoryItem from 'components/translation-item';
-import { selectors, useApp } from 'store/context';
 import { ActionTypes } from 'enums/action-types';
-import classes from 'pages/history/history.module.scss';
+import { selectors, useApp } from 'store/context';
+
+import classes from './favourites.module.scss';
 
 export default function FavouritesPage() {
+  const navigate = useNavigate();
   const favouritesItems = useApp(selectors.getFavourites);
   const { dispatch } = useApp();
 
@@ -13,11 +16,16 @@ export default function FavouritesPage() {
     dispatch({ type: ActionTypes.GET_FAVOURITES });
   }, [dispatch]);
 
-  const onRemoveItem = (uid: string, isFavourites: boolean) => {
+  const onUpdateIsFavourite = (uid: string, isFavourites: boolean) => {
     dispatch({
       type: ActionTypes.UPDATE_ITEM_IN_HISTORY,
       payload: { uid, isFavourite: isFavourites },
     });
+  };
+
+  const routeClick = (uid: string, link: string) => {
+    dispatch({ type: ActionTypes.SET_SELECTED_UID, payload: uid });
+    navigate(link);
   };
 
   if (!favouritesItems.length) {
@@ -31,10 +39,11 @@ export default function FavouritesPage() {
   return (
     <div className={classes.history__wrapper}>
       <div className={classes.history__content}>
-        {favouritesItems?.reverse().map((item: any, index: number) => (
+        {favouritesItems?.reverse().map((item: any) => (
           <HistoryItem
-            onAddToFavourites={onRemoveItem}
-            key={index}
+            onRouteClick={routeClick}
+            onAddToFavourites={onUpdateIsFavourite}
+            key={item.uid}
             sourceLanguage={item.sourceLanguage}
             targetLanguage={item.targetLanguage}
             sourceText={item.sourceText}

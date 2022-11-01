@@ -21,6 +21,7 @@ export default function useTranslate({
 }: TranslateProps) {
   const { dispatch } = useApp();
   const languages = useApp(selectors.getLanguages);
+  const selectedUID = useApp(selectors.getSelectedUID);
 
   useEffect(() => {
     if (!sourceText) {
@@ -35,17 +36,19 @@ export default function useTranslate({
         sourceLanguage === Languages.AUTO ? '' : sourceLanguage
       );
 
-      dispatch({
-        type: ActionTypes.ADD_ITEM_TO_HISTORY,
-        payload: createTranslationItem(
-          sourceLanguage,
-          targetLanguage,
-          sourceText,
-          data,
-          languages,
-          isFavourite
-        ),
-      });
+      if (!selectedUID) {
+        dispatch({
+          type: ActionTypes.ADD_ITEM_TO_HISTORY,
+          payload: createTranslationItem(
+            sourceLanguage,
+            targetLanguage,
+            sourceText,
+            data,
+            languages,
+            isFavourite
+          ),
+        });
+      }
 
       dispatch({
         type: ActionTypes.SET_TARGET_TEXT,

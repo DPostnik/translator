@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import Select from 'components/select';
 import TextField from 'components/textField';
@@ -23,7 +23,8 @@ export default function TranslatePage() {
   const { dispatch } = useApp();
   const { languages, sourceLanguage, targetLanguage, sourceText, targetText } =
     useApp(selectors.getTranslateState);
-  const { isFavourite } = useApp(selectors.getIsFavourite);
+  const isFavourite = useApp(selectors.getIsFavourite);
+  const selectedUID = useApp(selectors.getSelectedUID);
 
   const debouncedValue = useDebounce(sourceText, 500);
 
@@ -36,7 +37,18 @@ export default function TranslatePage() {
 
   useUrl();
 
+  useEffect(() => {
+    if (selectedUID) {
+      dispatch({
+        type: ActionTypes.UPDATE_ITEM_IN_HISTORY,
+        payload: { uid: selectedUID, isFavourite: isFavourite },
+      });
+      return;
+    }
+  }, [selectedUID, isFavourite, dispatch]);
+
   const clearIsFavourite = useCallback(() => {
+    dispatch({ type: ActionTypes.SET_SELECTED_UID, payload: '' });
     dispatch({ type: ActionTypes.SET_IS_FAVOURITE, payload: false });
   }, [dispatch]);
 
@@ -84,13 +96,6 @@ export default function TranslatePage() {
 
   const onAddToFavourites = () => {
     dispatch({ type: ActionTypes.SET_IS_FAVOURITE, payload: !isFavourite });
-
-    if (!isFavourite) {
-      dispatch({
-        type: ActionTypes.SET_IS_FAVOURITE,
-        payload: !isFavourite,
-      });
-    }
   };
 
   return (
