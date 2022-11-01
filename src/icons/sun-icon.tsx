@@ -1,7 +1,7 @@
 import { IconProps } from 'interfaces';
 
 export default function SunIcon({
-  size = { width: 25, height: 25 },
+  size = { width: 24, height: 24 },
 }: IconProps) {
   return (
     <svg
