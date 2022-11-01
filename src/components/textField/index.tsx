@@ -1,15 +1,23 @@
 import { ReactNode, useRef } from 'react';
 
 import classes from './textField.module.scss';
+import Loader from 'components/loader';
 
 type Props = {
   handleChange?: (text: string) => void;
   value: string;
-  rows: number;
+  loader?: {
+    loading: boolean;
+  } | null;
   children?: ReactNode;
 };
 
-export default function TextField({ handleChange, value, children }: Props) {
+export default function TextField({
+  handleChange,
+  value,
+  children,
+  loader = null,
+}: Props) {
   const textRef = useRef<any>(null);
 
   const onChange = () => {
@@ -22,15 +30,21 @@ export default function TextField({ handleChange, value, children }: Props) {
 
   return (
     <div className={classes.textField__wrapper}>
-      <input
-        ref={textRef}
-        className={classes.textField__input}
-        type="text"
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-      />
-      <div className={classes.textField__icons}>{children}</div>
+      {loader?.loading ? (
+        <Loader />
+      ) : (
+        <div className={classes.textField_new}>
+          <input
+            ref={textRef}
+            className={classes.textField__input}
+            type="text"
+            value={value}
+            onChange={onChange}
+            disabled={disabled}
+          />
+          <div className={classes.textField__icons}>{children}</div>
+        </div>
+      )}
     </div>
   );
 }

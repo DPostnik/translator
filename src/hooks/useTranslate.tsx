@@ -30,12 +30,13 @@ export default function useTranslate({
     }
 
     (async function translateText() {
+      dispatch({ type: ActionTypes.SET_IS_LOADING, payload: true });
       const data = await translate(
         targetLanguage,
         sourceText,
         sourceLanguage === Languages.AUTO ? '' : sourceLanguage
       );
-
+      dispatch({ type: ActionTypes.SET_IS_LOADING, payload: false });
       if (!selectedUID) {
         dispatch({
           type: ActionTypes.ADD_ITEM_TO_HISTORY,

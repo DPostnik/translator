@@ -36,6 +36,10 @@ export const getSelectedUID = (context: InitialStateType) => {
   return context.selectedUID;
 };
 
+export const getIsLoading = (context: InitialStateType) => {
+  return context.isLoading;
+};
+
 export const getTranslateState = (context: InitialStateType) => {
   return {
     sourceText: context.sourceText,
