@@ -5,6 +5,7 @@ import Layout from 'components/layout';
 import ErrorPage from 'pages/error';
 import HistoryPage from 'pages/history';
 import TranslatePage from 'pages/translate';
+import FavouritesPage from 'pages/favourites';
 
 export default function Router() {
   return (
@@ -17,7 +18,7 @@ export default function Router() {
         <Route path={ROUTES.HOME} element={<Layout />}>
           <Route path={ROUTES.TRANSLATE} element={<TranslatePage />} />
           <Route path={ROUTES.HISTORY} element={<HistoryPage />} />
-          {/*<Route path="favourites" element={<FavouritesPage />} />*/}
+          <Route path={ROUTES.FAVOURITE} element={<FavouritesPage />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

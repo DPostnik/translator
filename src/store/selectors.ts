@@ -20,6 +20,16 @@ export const getTargetLanguage = (context: InitialStateType) => {
   return context.targetLanguage;
 };
 
+export const getIsFavourite = (context: InitialStateType) => {
+  return {
+    isFavourite: context.isFavourite,
+  };
+};
+
+export const getFavourites = (context: InitialStateType) => {
+  return context.favourites;
+};
+
 export const getTranslateState = (context: InitialStateType) => {
   return {
     sourceText: context.sourceText,

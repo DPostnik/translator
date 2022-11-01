@@ -10,12 +10,14 @@ type TranslateProps = {
   targetLanguage: string;
   sourceLanguage: string;
   sourceText: string;
+  isFavourite?: boolean;
 };
 
 export default function useTranslate({
   sourceText,
   sourceLanguage,
   targetLanguage,
+  isFavourite,
 }: TranslateProps) {
   const { dispatch } = useApp();
   const languages = useApp(selectors.getLanguages);
@@ -40,7 +42,8 @@ export default function useTranslate({
           targetLanguage,
           sourceText,
           data,
-          languages
+          languages,
+          isFavourite
         ),
       });
 
@@ -50,5 +53,5 @@ export default function useTranslate({
       });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sourceText, targetLanguage, sourceLanguage, dispatch]);
+  }, [sourceText, targetLanguage, sourceLanguage, isFavourite, dispatch]);
 }

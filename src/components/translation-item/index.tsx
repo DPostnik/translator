@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import { TranslationItem } from 'interfaces';
+import { Colors } from 'enums/colors';
 
 import classes from './translation-item.module.scss';
-import RemoveIcon from 'assets/icons/remove.svg';
+import EmptyStarIcon from 'icons/empty-star-icon';
+import RemoveIcon from 'icons/remove-icon';
 
 export default function TranslationItemComponent({
   sourceLanguage,
@@ -12,22 +14,30 @@ export default function TranslationItemComponent({
   targetText,
   link,
   uid,
+  isFavourite,
   onRemoveItem,
-}: TranslationItem & { onRemoveItem: (uid: string) => void }) {
+  onAddToFavourites,
+}: TranslationItem & {
+  onRemoveItem?: (uid: string) => void;
+  onAddToFavourites: (uid: string, isFavourite: boolean) => void;
+}) {
   const onRemove = () => {
-    onRemoveItem(uid);
+    onRemoveItem && onRemoveItem(uid);
+  };
+
+  const onAddToFavouritesHandler = () => {
+    onAddToFavourites(uid, !isFavourite);
   };
 
   return (
     <li className={classes.item__wrapper}>
-      <img
-        className={classes.item__image}
-        src={RemoveIcon}
-        alt="close"
-        width={25}
-        height={25}
-        onClick={onRemove}
-      />
+      <div className={classes.item__image}>
+        <EmptyStarIcon
+          fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
+          onClick={onAddToFavouritesHandler}
+        />
+        {onRemoveItem && <RemoveIcon fill={Colors.WHITE} onClick={onRemove} />}
+      </div>
       <Link to={link}>
         <div className={classes.item__content}>
           <span className={classes.item__languages}>
