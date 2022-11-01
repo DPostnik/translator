@@ -8,6 +8,7 @@ import {
   getFavourites,
   getHistory,
   getIsFavourite,
+  getIsLoading,
   getLanguages,
   getSelectedUID,
   getSourceLanguage,
@@ -35,6 +36,7 @@ export interface InitialStateType {
   history: TranslationItem[];
   favourites: TranslationItem[];
   selectedUID: string;
+  isLoading: boolean;
 }
 
 const initialValue: InitialStateType = {
@@ -47,6 +49,7 @@ const initialValue: InitialStateType = {
   history: [],
   favourites: [],
   selectedUID: '',
+  isLoading: false,
 };
 
 const appContext = createContext<{
@@ -154,6 +157,12 @@ function appReducer(
         history,
       };
     }
+    case ActionTypes.SET_IS_LOADING: {
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -185,6 +194,7 @@ const selectors = {
   getFavourites,
   getHistory,
   getSelectedUID,
+  getIsLoading,
 };
 
 export { AppProvider, useApp, selectors };

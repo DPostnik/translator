@@ -25,6 +25,7 @@ export default function TranslatePage() {
     useApp(selectors.getTranslateState);
   const isFavourite = useApp(selectors.getIsFavourite);
   const selectedUID = useApp(selectors.getSelectedUID);
+  const isLoading = useApp(selectors.getIsLoading);
 
   const debouncedValue = useDebounce(sourceText, 500);
 
@@ -122,16 +123,12 @@ export default function TranslatePage() {
           />
         </div>
         <div className={classes.textarea__wrapper}>
-          <TextField
-            rows={5}
-            value={sourceText}
-            handleChange={onChangeSourceText}
-          >
+          <TextField value={sourceText} handleChange={onChangeSourceText}>
             {sourceText && (
               <RemoveIcon size={{ width: 20, height: 20 }} onClick={onClear} />
             )}
           </TextField>
-          <TextField rows={5} value={targetText}>
+          <TextField loader={{ loading: isLoading }} value={targetText}>
             {targetText.trim() && (
               <EmptyStarIcon
                 size={{ width: 20, height: 20 }}

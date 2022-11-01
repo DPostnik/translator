@@ -13,4 +13,5 @@ export enum ActionTypes {
   GET_FAVOURITES = 'getFavourites',
   EXCHANGE_LANGUAGES = 'exchangeLanguages',
   SET_SELECTED_UID = 'setSelectedUid',
+  SET_IS_LOADING = 'setIsLoading',
 }
