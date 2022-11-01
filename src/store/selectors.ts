@@ -21,13 +21,19 @@ export const getTargetLanguage = (context: InitialStateType) => {
 };
 
 export const getIsFavourite = (context: InitialStateType) => {
-  return {
-    isFavourite: context.isFavourite,
-  };
+  return context.isFavourite;
 };
 
 export const getFavourites = (context: InitialStateType) => {
   return context.favourites;
+};
+
+export const getHistory = (context: InitialStateType) => {
+  return context.history;
+};
+
+export const getSelectedUID = (context: InitialStateType) => {
+  return context.selectedUID;
 };
 
 export const getTranslateState = (context: InitialStateType) => {

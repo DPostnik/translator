@@ -12,4 +12,5 @@ export enum ActionTypes {
   GET_HISTORY = 'getHistory',
   GET_FAVOURITES = 'getFavourites',
   EXCHANGE_LANGUAGES = 'exchangeLanguages',
+  SET_SELECTED_UID = 'setSelectedUid',
 }

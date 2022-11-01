@@ -14,7 +14,7 @@ export default function useUrl() {
     selectors.getTranslateState
   );
 
-  const { isFavourite } = useApp(selectors.getIsFavourite);
+  const isFavourite = useApp(selectors.getIsFavourite);
 
   useEffect(() => {
     if (!languages.length) return;

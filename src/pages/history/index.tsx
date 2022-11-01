@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import HistoryItem from 'components/translation-item';
-import { useApp } from 'store/context';
+import { TranslationItem } from 'interfaces';
 import { ActionTypes } from 'enums/action-types';
+import { selectors, useApp } from 'store/context';
 
 import classes from './history.module.scss';
 
 export default function HistoryPage() {
-  const historyItems = useApp((state) => state.history);
+  const navigate = useNavigate();
+  const historyItems = useApp(selectors.getHistory);
   const { dispatch } = useApp();
 
   useEffect(() => {
@@ -37,15 +40,21 @@ export default function HistoryPage() {
     );
   }
 
+  const routeClick = (uid: string, link: string) => {
+    dispatch({ type: ActionTypes.SET_SELECTED_UID, payload: uid });
+    navigate(link);
+  };
+
   return (
     <div className={classes.history__wrapper}>
       <button onClick={onClearStorage}>clear history</button>
       <div className={classes.history__content}>
-        {historyItems?.reverse().map((item: any, index: number) => (
+        {historyItems?.reverse().map((item: TranslationItem) => (
           <HistoryItem
+            onRouteClick={routeClick}
             onAddToFavourites={onUpdateIsFavourite}
             onRemoveItem={onRemoveItem}
-            key={index}
+            key={item.uid}
             sourceLanguage={item.sourceLanguage}
             targetLanguage={item.targetLanguage}
             sourceText={item.sourceText}

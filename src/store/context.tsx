@@ -6,8 +6,10 @@ import { Languages } from 'enums/languages';
 import { STORAGES } from 'enums/storages';
 import {
   getFavourites,
+  getHistory,
   getIsFavourite,
   getLanguages,
+  getSelectedUID,
   getSourceLanguage,
   getSourceText,
   getTargetLanguage,
@@ -32,6 +34,7 @@ export interface InitialStateType {
   languages: Option[];
   history: TranslationItem[];
   favourites: TranslationItem[];
+  selectedUID: string;
 }
 
 const initialValue: InitialStateType = {
@@ -43,6 +46,7 @@ const initialValue: InitialStateType = {
   languages: [],
   history: [],
   favourites: [],
+  selectedUID: '',
 };
 
 const appContext = createContext<{
@@ -99,6 +103,12 @@ function appReducer(
         sourceText: state.targetText,
       };
     }
+    case ActionTypes.SET_SELECTED_UID: {
+      return {
+        ...state,
+        selectedUID: action.payload,
+      };
+    }
     case ActionTypes.GET_HISTORY: {
       return {
         ...state,
@@ -134,12 +144,10 @@ function appReducer(
       };
     }
     case ActionTypes.UPDATE_ITEM_IN_HISTORY: {
-      updateTranslationField(
-        action.payload.uid,
-        action.payload.isFavourite,
-      );
+      updateTranslationField(action.payload.uid, action.payload.isFavourite);
       const favourites = getFavouritesTranslation();
       const history = getItemByKeyFromLocalStorage(STORAGES.HISTORY);
+      console.log(history);
       return {
         ...state,
         favourites,
@@ -175,6 +183,8 @@ const selectors = {
   getTranslateState,
   getIsFavourite,
   getFavourites,
+  getHistory,
+  getSelectedUID,
 };
 
 export { AppProvider, useApp, selectors };
