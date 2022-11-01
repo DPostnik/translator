@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ReactNode } from 'react';
 
 import { navigationLinks } from 'constants/navigationLinks';
 
@@ -19,7 +20,7 @@ export default function Navigation() {
   );
 }
 type NavigationLinkProps = {
-  iconPath: string;
+  iconPath: ReactNode;
   label: string;
   to: string;
 };
@@ -28,9 +29,7 @@ function NavigationLink({ to, label, iconPath }: NavigationLinkProps) {
   return (
     <Link to={to}>
       <li className={classes.link__wrapper}>
-        <button className={classes.link__button}>
-          <img src={iconPath} width={30} height={30} alt={label} />
-        </button>
+        <button className={classes.link__button}>{iconPath}</button>
         <span className={classes.link__text}>{label}</span>
       </li>
     </Link>

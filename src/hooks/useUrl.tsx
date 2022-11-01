@@ -14,10 +14,13 @@ export default function useUrl() {
     selectors.getTranslateState
   );
 
+  const { isFavourite } = useApp(selectors.getIsFavourite);
+
   useEffect(() => {
     if (!languages.length) return;
 
     languagesDownloaded.current = true;
+    const favourite = searchParams.get('saved') || 'false';
     const sl = searchParams.get('sl');
     const tl = searchParams.get('tl');
     const text = searchParams.get('text');
@@ -38,6 +41,10 @@ export default function useUrl() {
         type: ActionTypes.SET_SOURCE_TEXT,
         payload: text,
       });
+      dispatch({
+        type: ActionTypes.SET_IS_FAVOURITE,
+        payload: favourite === 'true',
+      });
       return;
     }
 
@@ -45,6 +52,7 @@ export default function useUrl() {
       sl: sourceLanguage,
       tl: targetLanguage,
       text: sourceText,
+      saved: favourite,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languages]);
@@ -56,6 +64,13 @@ export default function useUrl() {
       sl: sourceLanguage,
       tl: targetLanguage,
       text: sourceText.trim(),
+      saved: isFavourite ? 'true' : 'false',
     });
-  }, [sourceLanguage, targetLanguage, sourceText, setSearchParams]);
+  }, [
+    isFavourite,
+    sourceLanguage,
+    targetLanguage,
+    sourceText,
+    setSearchParams,
+  ]);
 }

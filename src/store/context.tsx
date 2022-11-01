@@ -1,10 +1,12 @@
 import { createContext, Dispatch, useContext, useReducer } from 'react';
 
-import { TranslationItem, Option } from 'interfaces';
+import { Option, TranslationItem } from 'interfaces';
 import { ActionTypes } from 'enums/action-types';
 import { Languages } from 'enums/languages';
 import { STORAGES } from 'enums/storages';
 import {
+  getFavourites,
+  getIsFavourite,
   getLanguages,
   getSourceLanguage,
   getSourceText,
@@ -14,9 +16,11 @@ import {
 } from 'store/selectors';
 import {
   clearStorageByKey,
+  getFavouritesTranslation,
   getItemByKeyFromLocalStorage,
   removeItemByUID,
   saveTranslationItem,
+  updateTranslationField,
 } from 'utils/history';
 
 export interface InitialStateType {
@@ -24,8 +28,10 @@ export interface InitialStateType {
   sourceLanguage: string;
   targetLanguage: string;
   targetText: string;
+  isFavourite: boolean;
   languages: Option[];
   history: TranslationItem[];
+  favourites: TranslationItem[];
 }
 
 const initialValue: InitialStateType = {
@@ -33,8 +39,10 @@ const initialValue: InitialStateType = {
   sourceLanguage: Languages.RUSSIAN,
   targetLanguage: Languages.ENGLISH,
   targetText: '',
+  isFavourite: false,
   languages: [],
   history: [],
+  favourites: [],
 };
 
 const appContext = createContext<{
@@ -69,6 +77,12 @@ function appReducer(
       return {
         ...state,
         targetText: action.payload,
+      };
+    }
+    case ActionTypes.SET_IS_FAVOURITE: {
+      return {
+        ...state,
+        isFavourite: action.payload,
       };
     }
     case ActionTypes.SET_LANGUAGES: {
@@ -112,6 +126,26 @@ function appReducer(
         history: [],
       };
     }
+    case ActionTypes.GET_FAVOURITES: {
+      const favourites = getFavouritesTranslation();
+      return {
+        ...state,
+        favourites,
+      };
+    }
+    case ActionTypes.UPDATE_ITEM_IN_HISTORY: {
+      updateTranslationField(
+        action.payload.uid,
+        action.payload.isFavourite,
+      );
+      const favourites = getFavouritesTranslation();
+      const history = getItemByKeyFromLocalStorage(STORAGES.HISTORY);
+      return {
+        ...state,
+        favourites,
+        history,
+      };
+    }
     default:
       return state;
   }
@@ -139,6 +173,8 @@ const selectors = {
   getSourceLanguage,
   getTargetLanguage,
   getTranslateState,
+  getIsFavourite,
+  getFavourites,
 };
 
 export { AppProvider, useApp, selectors };

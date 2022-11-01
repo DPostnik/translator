@@ -5,6 +5,7 @@ import TextField from 'components/textField';
 import Warning from 'components/warning';
 import { ActionTypes } from 'enums/action-types';
 import { Languages } from 'enums/languages';
+import { Colors } from 'enums/colors';
 import useLanguages from 'hooks/useLanguages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslate from 'hooks/useTranslate';
@@ -12,40 +13,55 @@ import useUrl from 'hooks/useUrl';
 import { useApp, selectors } from 'store/context';
 import { getSourceLanguages, getTargetLanguages } from 'utils/language';
 
-import ExchangeIcon from 'assets/icons/exchange.svg';
 import classes from './translate.module.scss';
+import ExchangeIcon from 'icons/exchange-icon';
+import RemoveIcon from 'icons/remove-icon';
+import EmptyStarIcon from 'icons/empty-star-icon';
 
 export default function TranslatePage() {
   useLanguages();
   const { dispatch } = useApp();
   const { languages, sourceLanguage, targetLanguage, sourceText, targetText } =
     useApp(selectors.getTranslateState);
+  const { isFavourite } = useApp(selectors.getIsFavourite);
 
   const debouncedValue = useDebounce(sourceText, 500);
 
-  useTranslate({ sourceLanguage, sourceText: debouncedValue, targetLanguage });
+  useTranslate({
+    sourceLanguage,
+    sourceText: debouncedValue,
+    targetLanguage,
+    isFavourite,
+  });
 
   useUrl();
 
+  const clearIsFavourite = useCallback(() => {
+    dispatch({ type: ActionTypes.SET_IS_FAVOURITE, payload: false });
+  }, [dispatch]);
+
   const onChangeLanguage = useCallback(
     (name: string, value: string) => {
+      clearIsFavourite();
       const type =
         name === 'sourceLanguage'
           ? ActionTypes.SET_SOURCE_LANGUAGE
           : ActionTypes.SET_TARGET_LANGUAGE;
       dispatch({ type, payload: value });
     },
-    [dispatch]
+    [clearIsFavourite, dispatch]
   );
 
   const onChangeSourceText = useCallback(
     (value: string) => {
+      clearIsFavourite();
       dispatch({ type: ActionTypes.SET_SOURCE_TEXT, payload: value });
     },
-    [dispatch]
+    [clearIsFavourite, dispatch]
   );
 
   const onChangeLanguages = () => {
+    clearIsFavourite();
     dispatch({ type: ActionTypes.EXCHANGE_LANGUAGES });
   };
 
@@ -61,6 +77,22 @@ export default function TranslatePage() {
     return getTargetLanguages(languages, sourceLanguage);
   }, [languages, sourceLanguage]);
 
+  const onClear = () => {
+    dispatch({ type: ActionTypes.SET_SOURCE_TEXT, payload: '' });
+    clearIsFavourite();
+  };
+
+  const onAddToFavourites = () => {
+    dispatch({ type: ActionTypes.SET_IS_FAVOURITE, payload: !isFavourite });
+
+    if (!isFavourite) {
+      dispatch({
+        type: ActionTypes.SET_IS_FAVOURITE,
+        payload: !isFavourite,
+      });
+    }
+  };
+
   return (
     <>
       <div className={classes.page__wrapper}>
@@ -71,13 +103,11 @@ export default function TranslatePage() {
             onChange={onChangeLanguage}
             name="sourceLanguage"
           />
-          <img
-            src={ExchangeIcon}
-            alt="arrow"
-            width={25}
-            height={25}
+          <ExchangeIcon
+            stroke={canChangeLanguages ? Colors.BLACK : Colors.LIGHT_GRAY}
+            fill={Colors.WHITE}
+            size={{ width: 50, height: 50 }}
             onClick={canChangeLanguages ? onChangeLanguages : undefined}
-            className={canChangeLanguages ? '' : classes.disabled}
           />
           <Select
             options={targetLanguages}
@@ -91,8 +121,20 @@ export default function TranslatePage() {
             rows={5}
             value={sourceText}
             handleChange={onChangeSourceText}
-          />
-          <TextField rows={5} value={targetText} />
+          >
+            {sourceText && (
+              <RemoveIcon size={{ width: 20, height: 20 }} onClick={onClear} />
+            )}
+          </TextField>
+          <TextField rows={5} value={targetText}>
+            {targetText.trim() && (
+              <EmptyStarIcon
+                size={{ width: 20, height: 20 }}
+                fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
+                onClick={onAddToFavourites}
+              />
+            )}
+          </TextField>
         </div>
         <Warning sourceLanguage={sourceLanguage} sourceText={debouncedValue} />
       </div>
