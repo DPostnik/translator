@@ -1,0 +1,21 @@
+$primary-color: var(--primary-color);
+$background-color: var(--background-color);
+$text-color: var(--text-color);
+$border-color: var(--border-color);
+$secondary-color: var(--secondary-color);
+
+.light {
+  --primary-color: #6369d1;
+  --secondary-color: #60e1e0;
+  --background-color: #d8d2e1;
+  --text-color: #34435e;
+  --border-color: #b88e8d;
+}
+
+.dark {
+  --primary-color: #9ece9a;
+  --secondary-color: #74a57f;
+  --background-color: #074f57;
+  --text-color: #e4c5af;
+  --border-color: #077187;
+}
