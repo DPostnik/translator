@@ -7,10 +7,26 @@
     flex-direction: row;
     justify-content: center;
     border: $border;
-    background-color: $light-gray;
+    background-color: $text-field-color;
 
     &:hover {
       cursor: pointer;
+    }
+
+    &:nth-child(1) {
+      border-bottom: none;
+    }
+
+    @include md {
+      &:nth-child(1) {
+        border-bottom-left-radius: 1rem;
+        border-right: none;
+        border-bottom: $border;
+      }
+
+      &:nth-child(2) {
+        border-bottom-right-radius: 1rem;
+      }
     }
   }
 
@@ -28,12 +44,18 @@
     font-size: 1.5rem;
     min-height: 5rem;
     flex: 1;
-    background-color: $light-gray;
+    background-color: $text-field-color;
+    font-family: Monospaced, sans-serif;
+    color: $text-color;
     resize: none;
     overflow: hidden;
 
     @include md {
       font-size: 1.2rem;
+
+      @include md {
+        @include border-bottom-radius(1rem);
+      }
     }
   }
 
@@ -49,8 +71,12 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: $light-gray;
+  background-color: $text-field-color;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include md {
+    @include border-bottom-radius(1rem);
+  }
 }

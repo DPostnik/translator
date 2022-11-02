@@ -110,8 +110,7 @@ export default function TranslatePage() {
             name="sourceLanguage"
           />
           <ExchangeIcon
-            stroke={canChangeLanguages ? Colors.BLACK : Colors.LIGHT_GRAY}
-            fill={Colors.WHITE}
+            className={classes.exchange__icon}
             size={{ width: 50, height: 50 }}
             onClick={canChangeLanguages ? onChangeLanguages : undefined}
           />
@@ -125,14 +124,14 @@ export default function TranslatePage() {
         <div className={classes.textarea__wrapper}>
           <TextField value={sourceText} handleChange={onChangeSourceText}>
             {sourceText && (
-              <RemoveIcon size={{ width: 20, height: 20 }} onClick={onClear} />
+              <RemoveIcon onClick={onClear} className={classes.control__icons}/>
             )}
           </TextField>
           <TextField loader={{ loading: isLoading }} value={targetText}>
             {targetText.trim() && (
               <EmptyStarIcon
-                size={{ width: 20, height: 20 }}
                 fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
+                className={classes.control__icons}
                 onClick={onAddToFavourites}
               />
             )}

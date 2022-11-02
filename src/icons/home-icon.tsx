@@ -1,15 +1,10 @@
-type Props = {
-  fill?: string;
-  size?: {
-    width: number;
-    height: number;
-  };
-};
+import { IconProps } from 'interfaces';
 
 export default function HomeIcon({
   fill,
   size = { width: 25, height: 25 },
-}: Props) {
+  className,
+}: IconProps) {
   return (
     <svg
       x="0px"
@@ -18,6 +13,7 @@ export default function HomeIcon({
       width={size.width}
       height={size.height}
       fill={fill}
+      className={className}
     >
       <path
         d="M3.588,24.297c0,0-0.024,0.59,0.553,0.59c0.718,0,6.652-0.008,6.652-0.008l0.01-5.451c0,0-0.094-0.898,0.777-0.898h2.761

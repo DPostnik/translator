@@ -3,6 +3,7 @@ $background-color: var(--background-color);
 $text-color: var(--text-color);
 $border-color: var(--border-color);
 $secondary-color: var(--secondary-color);
+$text-field-color: var(--text-field-color);
 $white: #fff;
 $light-gray: #fafafa;
 
@@ -12,14 +13,16 @@ $light-gray: #fafafa;
   --background-color: #dbdae0;
   --text-color: #34435e;
   --border-color: #b88e8d;
+  --text-field-color: #dfe6e9;
 }
 
 .dark {
   --primary-color: #9ece9a;
   --secondary-color: #9dcba7;
   --background-color: #282c3b;
-  --text-color: #e4c5af;
+  --text-color: #fab1a0;
   --border-color: #077187;
+  --text-field-color: #2d3436;
 }
 
 $border: 1px solid $border-color;
