@@ -1,0 +1,35 @@
+$primary-color: var(--primary-color);
+$background-color: var(--background-color);
+$text-color: var(--text-color);
+$border-color: var(--border-color);
+$secondary-color: var(--secondary-color);
+$white: #fff;
+$light-gray: #fafafa;
+
+.light {
+  --primary-color: #6369d1;
+  --secondary-color: #a4eeee;
+  --background-color: #dbdae0;
+  --text-color: #34435e;
+  --border-color: #b88e8d;
+}
+
+.dark {
+  --primary-color: #9ece9a;
+  --secondary-color: #9dcba7;
+  --background-color: #282c3b;
+  --text-color: #e4c5af;
+  --border-color: #077187;
+}
+
+$border: 1px solid $border-color;
+
+@mixin border-bottom-radius($radius) {
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin border-top-radius($radius) {
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+}

@@ -40,6 +40,10 @@ export const getIsLoading = (context: InitialStateType) => {
   return context.isLoading;
 };
 
+export const getTheme = (context: InitialStateType) => {
+  return context.theme;
+};
+
 export const getTranslateState = (context: InitialStateType) => {
   return {
     sourceText: context.sourceText,

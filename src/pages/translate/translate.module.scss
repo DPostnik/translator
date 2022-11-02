@@ -26,7 +26,14 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    border: 1px solid black;
+    border: 1px solid $border-color;
+    border-bottom: none;
+    padding: 0 0.5rem;
+    background-color: $white;
+
+    @include md {
+      @include border-top-radius(1rem);
+    }
 
     &:hover {
       cursor: pointer;

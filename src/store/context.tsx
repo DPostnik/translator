@@ -15,6 +15,7 @@ import {
   getSourceText,
   getTargetLanguage,
   getTargetText,
+  getTheme,
   getTranslateState,
 } from 'store/selectors';
 import {
@@ -25,8 +26,10 @@ import {
   saveTranslationItem,
   updateTranslationField,
 } from 'utils/history';
+import { Theme } from 'enums/theme';
 
 export interface InitialStateType {
+  theme: Theme;
   sourceText: string;
   sourceLanguage: string;
   targetLanguage: string;
@@ -50,6 +53,7 @@ const initialValue: InitialStateType = {
   favourites: [],
   selectedUID: '',
   isLoading: false,
+  theme: Theme.LIGHT,
 };
 
 const appContext = createContext<{
@@ -62,6 +66,12 @@ function appReducer(
   action: { payload: any; type: ActionTypes }
 ) {
   switch (action.type) {
+    case ActionTypes.SET_THEME: {
+      return {
+        ...state,
+        theme: action.payload,
+      };
+    }
     case ActionTypes.SET_SOURCE_LANGUAGE: {
       return {
         ...state,
@@ -150,7 +160,6 @@ function appReducer(
       updateTranslationField(action.payload.uid, action.payload.isFavourite);
       const favourites = getFavouritesTranslation();
       const history = getItemByKeyFromLocalStorage(STORAGES.HISTORY);
-      console.log(history);
       return {
         ...state,
         favourites,
@@ -195,6 +204,7 @@ const selectors = {
   getHistory,
   getSelectedUID,
   getIsLoading,
+  getTheme,
 };
 
 export { AppProvider, useApp, selectors };
