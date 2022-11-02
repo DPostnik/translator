@@ -160,7 +160,6 @@ function appReducer(
       updateTranslationField(action.payload.uid, action.payload.isFavourite);
       const favourites = getFavouritesTranslation();
       const history = getItemByKeyFromLocalStorage(STORAGES.HISTORY);
-      console.log(history);
       return {
         ...state,
         favourites,

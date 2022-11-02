@@ -1,3 +1,5 @@
+@import '../../styles/utils/_all.scss';
+
 .navigation {
   &__wrapper {
     display: flex;
@@ -18,7 +20,7 @@
         border-radius: 100%;
         padding: 1.2rem;
         border: 1px solid rgba(0, 0, 0, 0.3);
-        background-color: #fafafa;
+        background-color: $secondary-color;
 
         &:hover {
           cursor: pointer;
@@ -27,7 +29,7 @@
 
       &__text {
         margin-top: 0.5rem;
-        color: black;
+        color: $text-color;
       }
     }
   }

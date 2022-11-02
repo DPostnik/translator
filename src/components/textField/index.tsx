@@ -1,7 +1,9 @@
 import { ReactNode, useRef } from 'react';
 
-import classes from './textField.module.scss';
 import Loader from 'components/loader';
+import useAutosizeTextArea from 'hooks/useAutosizeTextArea';
+
+import classes from './textField.module.scss';
 
 type Props = {
   handleChange?: (text: string) => void;
@@ -20,6 +22,8 @@ export default function TextField({
 }: Props) {
   const textRef = useRef<any>(null);
 
+  useAutosizeTextArea(textRef.current, value);
+
   const onChange = () => {
     if (handleChange) {
       handleChange(textRef?.current?.value);
@@ -30,19 +34,21 @@ export default function TextField({
 
   return (
     <div className={classes.textField__wrapper}>
-      {loader?.loading ? (
-        <Loader />
-      ) : (
-        <div className={classes.textField_new}>
-          <input
-            ref={textRef}
-            className={classes.textField__input}
-            type="text"
-            value={value}
-            onChange={onChange}
-            disabled={disabled}
-          />
-          <div className={classes.textField__icons}>{children}</div>
+      <div className={classes.textField_new}>
+        <textarea
+          ref={textRef}
+          className={classes.textField__input}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+        />
+        <div className={classes.textField__icons}>{children}</div>
+      </div>
+      {loader?.loading && (
+        <div className={classes.loader__wrapper}>
+          <div className={classes.loader__content}>
+            <Loader />
+          </div>
         </div>
       )}
     </div>
