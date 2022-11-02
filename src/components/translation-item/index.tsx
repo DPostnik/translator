@@ -4,6 +4,7 @@ import { Colors } from 'enums/colors';
 import classes from './translation-item.module.scss';
 import EmptyStarIcon from 'icons/empty-star-icon';
 import RemoveIcon from 'icons/remove-icon';
+import { truncate } from 'utils/truncate';
 
 export default function TranslationItemComponent({
   sourceLanguage,
@@ -41,15 +42,19 @@ export default function TranslationItemComponent({
           onClick={onAddToFavouritesHandler}
           className={classes.icon}
         />
-        {onRemoveItem && <RemoveIcon className={classes.icon} onClick={onRemove} />}
+        {onRemoveItem && (
+          <RemoveIcon className={classes.icon} onClick={onRemove} />
+        )}
       </div>
       <div onClick={routeClick}>
         <div className={classes.item__content}>
           <span className={classes.item__languages}>
             {sourceLanguage} &rarr; {targetLanguage}
           </span>
-          <span>{sourceText}</span>
-          <span className={classes['item__target-text']}>{targetText}</span>
+          <span>{truncate(sourceText, 40)}</span>
+          <span className={classes['item__target-text']}>
+            {truncate(targetText, 40)}
+          </span>
         </div>
       </div>
     </li>

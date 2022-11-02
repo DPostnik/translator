@@ -1,0 +1,3 @@
+export function truncate(value: string, limit: number): string {
+  return value?.length > limit ? value.substring(0, limit) + '...' : value;
+}
