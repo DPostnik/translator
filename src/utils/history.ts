@@ -8,6 +8,10 @@ export function getItemByKeyFromLocalStorage(key: string) {
   return JSON.parse(localStorage.getItem(key) || '[]');
 }
 
+export function setTheme(value: string) {
+  localStorage.setItem('theme', value);
+}
+
 export function saveStorage(key: string, history: TranslationItem[]) {
   localStorage.setItem(key, JSON.stringify(history));
 }
