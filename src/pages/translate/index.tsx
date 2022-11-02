@@ -124,15 +124,14 @@ export default function TranslatePage() {
         <div className={classes.textarea__wrapper}>
           <TextField value={sourceText} handleChange={onChangeSourceText}>
             {sourceText && (
-              <RemoveIcon size={{ width: 20, height: 20 }} onClick={onClear} className={classes.remove__icon}/>
+              <RemoveIcon onClick={onClear} className={classes.control__icons}/>
             )}
           </TextField>
           <TextField loader={{ loading: isLoading }} value={targetText}>
             {targetText.trim() && (
               <EmptyStarIcon
-                size={{ width: 20, height: 20 }}
                 fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
-                className={classes.star__icon}
+                className={classes.control__icons}
                 onClick={onAddToFavourites}
               />
             )}

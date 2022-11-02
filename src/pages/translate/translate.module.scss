@@ -66,10 +66,13 @@
   stroke: $text-color;
 }
 
-.remove__icon {
+.control__icons {
   fill: $primary-color;
-}
+  width: 2rem;
+  height: 2rem;
 
-.star__icon {
-  fill: $primary-color;
+  @include md {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }

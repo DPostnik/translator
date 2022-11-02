@@ -27,6 +27,7 @@
         &:hover {
           cursor: pointer;
           background-color: $primary-color;
+          transition: all 0.6s;
         }
       }
 
