@@ -1,15 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import HistoryItem from 'components/translation-item';
 import { ActionTypes } from 'enums/action-types';
 import { selectors, useApp } from 'store/context';
-
-import classes from './favourites.module.scss';
+import ListPageLayout from 'components/list-page-layout';
 
 export default function FavouritesPage() {
   const navigate = useNavigate();
-  const favouritesItems = useApp(selectors.getFavourites);
   const { dispatch } = useApp();
 
   useEffect(() => {
@@ -28,32 +25,13 @@ export default function FavouritesPage() {
     navigate(link);
   };
 
-  if (!favouritesItems.length) {
-    return (
-      <div>
-        <h1>Favourites is empty</h1>
-      </div>
-    );
-  }
-
   return (
-    <div className={classes.history__wrapper}>
-      <div className={classes.history__content}>
-        {favouritesItems?.reverse().map((item: any) => (
-          <HistoryItem
-            onRouteClick={routeClick}
-            onAddToFavourites={onUpdateIsFavourite}
-            key={item.uid}
-            sourceLanguage={item.sourceLanguage}
-            targetLanguage={item.targetLanguage}
-            sourceText={item.sourceText}
-            targetText={item.targetText}
-            link={item.link}
-            uid={item.uid}
-            isFavourite={item.isFavourite}
-          />
-        ))}
-      </div>
-    </div>
+    <ListPageLayout
+      emptyListText="Список избранных переводов пуст"
+      listSelector={selectors.getFavourites}
+      onUpdateIsFavourite={onUpdateIsFavourite}
+      headerText="Избранные переводы"
+      onNavigate={routeClick}
+    />
   );
 }

@@ -1,0 +1,36 @@
+@import 'src/styles/utils/all';
+
+.history {
+  &__wrapper {
+    height: 100%;
+    width: 100%;
+    padding: 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__control {
+    padding: 0.5rem;
+    border: $border;
+    border-radius: 1rem;
+    font-size: 1rem;
+    color: $text-color;
+    background-color: $text-field-color;
+
+    &:hover {
+      transition: $transition;
+      cursor: pointer;
+      background-color: $primary-color;
+      color: $secondary-color;
+    }
+  }
+}

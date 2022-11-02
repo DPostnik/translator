@@ -37,7 +37,7 @@ export default function TranslationItemComponent({
     <li className={classes.item__wrapper}>
       <div className={classes.item__image}>
         <EmptyStarIcon
-          fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
+          fill={isFavourite ? Colors.ORANGE : Colors.LIGHT_GRAY}
           onClick={onAddToFavouritesHandler}
           className={classes.icon}
         />

@@ -130,7 +130,7 @@ export default function TranslatePage() {
           <TextField loader={{ loading: isLoading }} value={targetText}>
             {targetText.trim() && (
               <EmptyStarIcon
-                fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
+                fill={isFavourite ? Colors.ORANGE : Colors.LIGHT_GRAY}
                 className={classes.control__icons}
                 onClick={onAddToFavourites}
               />
