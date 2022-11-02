@@ -3,7 +3,7 @@ import { ReactNode, useRef } from 'react';
 import Loader from 'components/loader';
 import useAutosizeTextArea from 'hooks/useAutosizeTextArea';
 
-import classes from './textField.module.scss';
+import classes from 'components/text-field/text-field.module.scss';
 
 type Props = {
   handleChange?: (text: string) => void;

@@ -37,10 +37,11 @@ export default function TranslationItemComponent({
     <li className={classes.item__wrapper}>
       <div className={classes.item__image}>
         <EmptyStarIcon
-          fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
+          fill={isFavourite ? Colors.ORANGE : Colors.LIGHT_GRAY}
           onClick={onAddToFavouritesHandler}
+          className={classes.icon}
         />
-        {onRemoveItem && <RemoveIcon fill={Colors.WHITE} onClick={onRemove} />}
+        {onRemoveItem && <RemoveIcon className={classes.icon} onClick={onRemove} />}
       </div>
       <div onClick={routeClick}>
         <div className={classes.item__content}>

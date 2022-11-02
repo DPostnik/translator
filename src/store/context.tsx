@@ -24,6 +24,7 @@ import {
   getItemByKeyFromLocalStorage,
   removeItemByUID,
   saveTranslationItem,
+  setTheme,
   updateTranslationField,
 } from 'utils/history';
 import { Theme } from 'enums/theme';
@@ -67,6 +68,7 @@ function appReducer(
 ) {
   switch (action.type) {
     case ActionTypes.SET_THEME: {
+      setTheme(action.payload);
       return {
         ...state,
         theme: action.payload,

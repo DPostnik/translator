@@ -7,9 +7,20 @@ import { selectors, useApp } from 'store/context';
 
 import colors from 'styles/utils/colors.module.scss';
 import classes from './layout.module.scss';
+import { useEffect } from 'react';
+import { ActionTypes } from 'enums/action-types';
 
 export default function Index() {
   const theme = useApp(selectors.getTheme);
+  const { dispatch } = useApp();
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme');
+    dispatch({
+      type: ActionTypes.SET_THEME,
+      payload: theme ? theme : Theme.LIGHT,
+    });
+  }, [dispatch]);
 
   return (
     <div

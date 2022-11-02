@@ -1,0 +1,9 @@
+@import 'src/styles/utils/all';
+
+.error__message {
+  padding: 3rem;
+
+  @include md {
+    padding: 7rem;
+  }
+}

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
 import Select from 'components/select';
-import TextField from 'components/textField';
+import TextField from 'components/text-field';
 import Warning from 'components/warning';
 import { ActionTypes } from 'enums/action-types';
 import { Languages } from 'enums/languages';
@@ -130,7 +130,7 @@ export default function TranslatePage() {
           <TextField loader={{ loading: isLoading }} value={targetText}>
             {targetText.trim() && (
               <EmptyStarIcon
-                fill={isFavourite ? Colors.ORANGE : Colors.WHITE}
+                fill={isFavourite ? Colors.ORANGE : Colors.LIGHT_GRAY}
                 className={classes.control__icons}
                 onClick={onAddToFavourites}
               />
