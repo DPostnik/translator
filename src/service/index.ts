@@ -20,7 +20,7 @@ export { languageApi };
 const axiosInstance = axios.create({
   timeout: 10000,
   headers,
-  baseURL: process.env.REACT_APP_RAPID_API_HOST,
+  baseURL: `https://${process.env.REACT_APP_RAPID_API_HOST}`,
   params: { 'api-version': '3.0', scope: ['translation'] },
 });
 
