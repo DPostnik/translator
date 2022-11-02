@@ -1,10 +1,13 @@
+@import '../../styles/utils/_all.scss';
+
 .wrapper {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 57, 30, 0.79);
-  color: black;
+  background-color: $error-color;
+  border-radius: 1rem;
+  color: $black;
 
   &.active {
     height: 5rem;
