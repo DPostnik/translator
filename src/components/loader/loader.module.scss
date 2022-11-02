@@ -3,11 +3,11 @@
 .loader:after {
   content: '';
   display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.5rem;
   border-radius: 50%;
-  border: 6px solid $primary-color;
+  border: 0.4rem solid $primary-color;
   border-color: $primary-color transparent;
   animation: loader 1.2s linear infinite;
 }
