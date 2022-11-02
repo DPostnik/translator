@@ -1,10 +1,10 @@
 import { TranslationItem } from 'interfaces';
 import { Colors } from 'enums/colors';
+import { truncate } from 'utils/truncate';
 
 import classes from './translation-item.module.scss';
 import EmptyStarIcon from 'icons/empty-star-icon';
 import RemoveIcon from 'icons/remove-icon';
-import { truncate } from 'utils/truncate';
 
 export default function TranslationItemComponent({
   sourceLanguage,
@@ -22,11 +22,13 @@ export default function TranslationItemComponent({
   onRouteClick?: (uid: string, link: string) => void;
   onAddToFavourites: (uid: string, isFavourite: boolean) => void;
 }) {
-  const onRemove = () => {
+  const onRemove = (e: MouseEvent) => {
+    e.stopPropagation();
     onRemoveItem && onRemoveItem(uid);
   };
 
-  const onAddToFavouritesHandler = () => {
+  const onAddToFavouritesHandler = (e: MouseEvent) => {
+    e.stopPropagation();
     onAddToFavourites(uid, !isFavourite);
   };
 
@@ -35,7 +37,7 @@ export default function TranslationItemComponent({
   };
 
   return (
-    <li className={classes.item__wrapper}>
+    <li className={classes.item__wrapper} onClick={routeClick}>
       <div className={classes.item__image}>
         <EmptyStarIcon
           fill={isFavourite ? Colors.ORANGE : Colors.LIGHT_GRAY}
@@ -46,7 +48,7 @@ export default function TranslationItemComponent({
           <RemoveIcon className={classes.icon} onClick={onRemove} />
         )}
       </div>
-      <div onClick={routeClick}>
+      <div>
         <div className={classes.item__content}>
           <span className={classes.item__languages}>
             {sourceLanguage} &rarr; {targetLanguage}
@@ -60,5 +62,3 @@ export default function TranslationItemComponent({
     </li>
   );
 }
-
-// todo truncate

@@ -8,6 +8,10 @@
   background-color: $text-field-color;
   color: $text-color;
 
+  &:focus-visible {
+    outline: none;
+  }
+
   @include md {
     @include border-top-radius(1rem);
     flex-grow: 1;

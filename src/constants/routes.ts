@@ -1,6 +1,8 @@
+const HomeRoute = '/translator';
+
 export const ROUTES = {
-  HOME: '/translator',
-  TRANSLATE: 'translate',
-  HISTORY: 'history',
-  FAVOURITE: 'favourite',
+  HOME: HomeRoute,
+  TRANSLATE: `${HomeRoute}/translate`,
+  HISTORY: `${HomeRoute}/history`,
+  FAVOURITE: `${HomeRoute}/favourite`,
 };

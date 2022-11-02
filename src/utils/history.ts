@@ -1,5 +1,6 @@
 import { uid } from 'uid';
 
+import { ROUTES } from 'constants/routes';
 import { Option, TranslationItem } from 'interfaces';
 import { STORAGES } from 'enums/storages';
 import { findLanguageByKey, getSourceLanguages } from 'utils/language';
@@ -9,7 +10,7 @@ export function getItemByKeyFromLocalStorage(key: string) {
 }
 
 export function setTheme(value: string) {
-  localStorage.setItem('theme', value);
+  localStorage.setItem(STORAGES.THEME, value);
 }
 
 export function saveStorage(key: string, history: TranslationItem[]) {
@@ -93,5 +94,5 @@ function createLink(
   text: string,
   isFavourite: boolean
 ) {
-  return `/translate?sl=${sourceLanguage}&tl=${targetLanguage}&text=${text}&saved=${isFavourite}`;
+  return `${ROUTES.TRANSLATE}?sl=${sourceLanguage}&tl=${targetLanguage}&text=${text}&saved=${isFavourite}`;
 }
