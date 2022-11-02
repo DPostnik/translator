@@ -4,12 +4,14 @@ export default function EmptyStarIcon({
   fill,
   size = { width: 25, height: 25 },
   onClick,
+  className,
 }: IconProps) {
   return (
     <svg
       x="0px"
       y="0px"
       viewBox="0 0 285.855 285.855"
+      className={className}
       width={size.width}
       height={size.height}
       onClick={onClick}
@@ -24,7 +26,6 @@ export default function EmptyStarIcon({
 		C145.974,238.105,139.878,238.105,134.776,240.787z"
       />
       <path
-        fill="#22313F"
         d="M278.279,134.343c14.842-14.467,6.64-39.69-13.864-42.669l-63.235-9.188
 			c-3.263-0.475-6.082-2.523-7.541-5.479l-28.28-57.301c-9.173-18.587-35.695-18.58-44.864,0l-28.28,57.301
 			c-1.459,2.957-4.278,5.005-7.541,5.479l-63.235,9.188c-20.512,2.98-28.7,28.207-13.864,42.669l45.757,44.602

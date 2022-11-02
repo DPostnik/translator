@@ -1,6 +1,7 @@
 import { IconProps } from 'interfaces';
 
 export default function ExchangeIcon({
+  className,
   fill,
   size = { width: 25, height: 25 },
   stroke,
@@ -8,6 +9,7 @@ export default function ExchangeIcon({
 }: IconProps) {
   return (
     <svg
+      className={className}
       x="0px"
       y="0px"
       viewBox="0 0 477.426 477.426"

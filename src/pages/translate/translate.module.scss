@@ -14,6 +14,9 @@
 
     @include md {
       flex-direction: row;
+      box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
+
+      @include border-bottom-radius(1rem);
     }
 
     & > * {
@@ -29,7 +32,7 @@
     border: 1px solid $border-color;
     border-bottom: none;
     padding: 0 0.5rem;
-    background-color: $white;
+    background-color: $text-field-color;
 
     @include md {
       @include border-top-radius(1rem);
@@ -56,4 +59,17 @@
 
 .disabled {
   opacity: 0.5;
+}
+
+.exchange__icon {
+  fill: $text-field-color;
+  stroke: $text-color;
+}
+
+.remove__icon {
+  fill: $primary-color;
+}
+
+.star__icon {
+  fill: $primary-color;
 }

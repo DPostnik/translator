@@ -6,4 +6,5 @@ export type IconProps = {
   };
   stroke?: string;
   onClick?: () => void;
+  className?: string;
 };

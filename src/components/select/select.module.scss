@@ -5,6 +5,8 @@
   flex-grow: 0;
   width: 100%;
   border: none;
+  background-color: $text-field-color;
+  color: $text-color;
 
   @include md {
     @include border-top-radius(1rem);
