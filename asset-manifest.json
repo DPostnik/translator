@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/translate/static/css/main.0de31daa.css",
+    "main.js": "/translate/static/js/main.27294366.js",
+    "index.html": "/translate/index.html",
+    "main.0de31daa.css.map": "/translate/static/css/main.0de31daa.css.map",
+    "main.27294366.js.map": "/translate/static/js/main.27294366.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0de31daa.css",
+    "static/js/main.27294366.js"
+  ]
+}
