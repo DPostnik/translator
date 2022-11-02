@@ -4,6 +4,7 @@ export default function StarIcon({
   fill,
   size = { width: 25, height: 25 },
   stroke,
+  className,
 }: IconProps) {
   return (
     <svg
@@ -14,6 +15,7 @@ export default function StarIcon({
       height={size.height}
       fill={fill}
       stroke={stroke}
+      className={className}
     >
       <path
         d="M39.199,15.197H27.668L24.105,4.232c-1.404-4.326-3.68-4.326-5.084,0l-3.563,10.965H3.928

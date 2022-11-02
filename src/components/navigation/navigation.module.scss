@@ -19,11 +19,12 @@
       &__button {
         border-radius: 100%;
         padding: 1.2rem;
-        border: 1px solid rgba(0, 0, 0, 0.3);
-        background-color: $secondary-color;
+        border: $border;
+        background-color: $text-field-color;
 
         &:hover {
           cursor: pointer;
+          background-color: $primary-color;
         }
       }
 
