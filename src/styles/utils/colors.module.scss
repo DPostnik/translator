@@ -9,6 +9,7 @@ $light-gray: #fafafa;
 $error-color: #ff5151;
 $black: #000;
 $border: 1px solid $border-color;
+$transition: all 0.6s;
 
 .light {
   --primary-color: #6369d1;
@@ -21,7 +22,7 @@ $border: 1px solid $border-color;
 
 .dark {
   --primary-color: #9ece9a;
-  --secondary-color: #9dcba7;
+  --secondary-color: #2d3436;
   --background-color: #282c3b;
   --text-color: #fab1a0;
   --border-color: #077187;

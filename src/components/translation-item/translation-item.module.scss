@@ -6,7 +6,9 @@
     padding: 2rem 3rem;
     border-radius: 1rem;
     margin: 1rem;
-    border: 1px solid black;
+    border: $border;
+    color: $text-color;
+    background-color: $text-field-color;
     display: flex;
     flex-direction: column;
 
@@ -15,7 +17,17 @@
     }
 
     &:hover {
-      background-color: $light-gray;
+      background-color: $primary-color;
+      color: $secondary-color;
+      cursor: pointer;
+      transition: $transition;
+
+      .item__image {
+        .icon {
+          fill: $secondary-color;
+          transition: $transition;
+        }
+      }
     }
   }
 
@@ -28,7 +40,6 @@
   }
 
   &__content {
-    color: $text-color;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -41,6 +52,18 @@
   }
 
   &__target-text {
-    color: gray;
+    opacity: 0.5;
+  }
+}
+
+.icon {
+  fill: $text-color;
+
+  width: 2rem;
+  height: 2rem;
+
+  @include md {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
