@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const headers = {
-  'X-RapidAPI-Key': '14bad7261amsh871acc12830dcc0p143ae5jsnb0bd1b6dcc96',
-  'X-RapidAPI-Host': 'microsoft-translator-text.p.rapidapi.com',
+  'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+  'X-RapidAPI-Host': process.env.REACT_APP_RAPID_API_HOST,
   'Content-Type': 'application/json',
 };
 
@@ -11,7 +11,7 @@ const baseParams = { 'api-version': '3.0', scope: ['translation'] };
 const languageApi = axios.create({
   timeout: 10000,
   headers,
-  baseURL: 'https://api.cognitive.microsofttranslator.com/languages',
+  baseURL: `${process.env.REACT_APP_MICROSOFT_API_HOST}/languages`,
   params: baseParams,
 });
 
@@ -20,7 +20,7 @@ export { languageApi };
 const axiosInstance = axios.create({
   timeout: 10000,
   headers,
-  baseURL: 'https://microsoft-translator-text.p.rapidapi.com',
+  baseURL: process.env.REACT_APP_RAPID_API_HOST,
   params: { 'api-version': '3.0', scope: ['translation'] },
 });
 
