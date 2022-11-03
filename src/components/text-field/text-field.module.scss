@@ -59,6 +59,10 @@
     }
   }
 
+  &__loading {
+    filter: blur(1rem);
+  }
+
   &__icons {
     align-self: flex-start;
     padding: 1rem;
@@ -71,12 +75,11 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: $text-field-color;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @include md {
-    @include border-bottom-radius(1rem);
+    border-bottom-right-radius: 1rem;
   }
 }

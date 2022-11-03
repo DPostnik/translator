@@ -1,9 +1,10 @@
 import { ReactNode, useRef } from 'react';
 
-import Loader from 'components/loader';
+import SkeletonLoader from 'components/loader/skeleton-loader';
 import useAutosizeTextArea from 'hooks/useAutosizeTextArea';
+import { classnames } from 'utils/classnames';
 
-import classes from 'components/text-field/text-field.module.scss';
+import classes from './text-field.module.scss';
 
 type Props = {
   handleChange?: (text: string) => void;
@@ -34,7 +35,12 @@ export default function TextField({
 
   return (
     <div className={classes.textField__wrapper}>
-      <div className={classes.textField_new}>
+      <div
+        className={classnames(
+          classes.textField_new,
+          loader?.loading && classes.textField__loading
+        )}
+      >
         <textarea
           ref={textRef}
           className={classes.textField__input}
@@ -46,9 +52,7 @@ export default function TextField({
       </div>
       {loader?.loading && (
         <div className={classes.loader__wrapper}>
-          <div className={classes.loader__content}>
-            <Loader />
-          </div>
+          <SkeletonLoader />
         </div>
       )}
     </div>
